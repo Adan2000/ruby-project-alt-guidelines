@@ -12,7 +12,7 @@ class CLI
                 response = gets.chomp
                 @user = User.find_or_create_by(name: response)
                 @user.save
-                puts "Thank you for creating a user"
+                puts "Thank you for creating a user\n\n"
             when "2"
                 puts "Enter a username"
                 response = gets.chomp
@@ -21,7 +21,7 @@ class CLI
                 puts "Enter trainer's name"
                 response = gets.chomp
                 @trainer = Trainer.find_by(name: response)
-                puts "Enter a date for your future training session"
+                puts "Enter a date for your future training session, ex DD-MM-YYYY"
                 date = gets.chomp
                 if @trainer 
                     new_session = Session.create(trainer_id: @trainer.id, user_id: @user.id, date: date)
@@ -39,7 +39,7 @@ class CLI
             when "4"
                 puts "Enter the session date you want to update"
                 session_date = gets.chomp
-                date = Session.select {|session| session.date = session_date}
+                date = Session.all.select {|session| session.date == session_date}
                 puts "Enter the new date"
                 new_date = gets.chomp
                 date.new_date = new_date
